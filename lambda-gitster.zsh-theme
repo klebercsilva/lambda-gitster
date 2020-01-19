@@ -15,10 +15,13 @@ function get_pwd(){
   echo $prompt_short_dir
 }
 
-PROMPT='$ret_status %{$fg[white]%}$(get_pwd) $(git_prompt_info)%{$reset_color%}%{$reset_color%} '
-
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[cyan]%}"
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[cyan]%}branch: %{$fg_bold[red]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_DIRTY=" %{$fg[yellow]%}✗%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_CLEAN=" %{$fg[green]%}✓%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_DIRTY=""
+ZSH_THEME_GIT_PROMPT_CLEAN=""
 
+if [[ -e $PWD/.git ]]; then
+    PROMPT='$ret_status %{$fg[white]%}[ $(get_pwd) ] $(git_prompt_info) %{$fg_bold[green]%}➜ %{$reset_color%} '
+else
+    PROMPT='$ret_status %{$fg[white]%}[ $(get_pwd) ] %{$fg_bold[green]%}➜ %{$reset_color%} '
+fi
